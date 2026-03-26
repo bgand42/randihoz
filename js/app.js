@@ -24,6 +24,7 @@
     bindEvents();
     document.getElementById('lastUpdated').textContent = DATA_LAST_UPDATED;
     document.getElementById('footerLastUpdated').textContent = DATA_LAST_UPDATED;
+    document.getElementById('footerLastSearch').textContent = LAST_WEB_SEARCH;
   }
 
   // --- Haversine distance (km) ---

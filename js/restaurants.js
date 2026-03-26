@@ -1,6 +1,7 @@
 // Restaurant data - Last updated: 2026-03-26
 // Source: Web research from TimeOut Budapest, We Love Budapest, Dining Guide, TripAdvisor
 const DATA_LAST_UPDATED = '2026-03-26';
+const LAST_WEB_SEARCH = '2026-03-26';
 
 const RESTAURANTS = [
   // === BRUNCH / REGGELI ===
