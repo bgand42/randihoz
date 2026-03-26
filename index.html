@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>RandiHoz – Étterem Ajánló Stellának</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍽️</text></svg>">
+</head>
+<body>
+  <div id="app">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-content">
+        <div class="header-title">
+          <h1>RandiHoz</h1>
+          <p class="subtitle">Hova menjünk enni, Stella?</p>
+        </div>
+        <button class="btn-icon" id="settingsBtn" aria-label="Beállítások">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Filters -->
+    <section class="filters">
+      <div class="meal-type-filters">
+        <button class="meal-btn active" data-meal="brunch">
+          <span class="meal-icon">☀️</span>
+          <span class="meal-label">Reggeli / Brunch</span>
+        </button>
+        <button class="meal-btn" data-meal="lunch">
+          <span class="meal-icon">🍽️</span>
+          <span class="meal-label">Ebéd</span>
+        </button>
+        <button class="meal-btn" data-meal="dinner">
+          <span class="meal-icon">🌙</span>
+          <span class="meal-label">Vacsora</span>
+        </button>
+      </div>
+
+      <div class="distance-filter">
+        <div class="distance-header">
+          <span class="distance-label">Max. távolság</span>
+          <span class="distance-value" id="distanceValue">30 perc</span>
+        </div>
+        <input type="range" id="distanceSlider" min="5" max="60" value="30" step="5" class="slider">
+      </div>
+
+      <div class="sort-row">
+        <label class="sort-label">Rendezés:</label>
+        <select id="sortSelect" class="sort-select">
+          <option value="distance">Távolság</option>
+          <option value="rating">Értékelés</option>
+          <option value="newest">Legújabb</option>
+          <option value="random">Meglepetés</option>
+        </select>
+      </div>
+    </section>
+
+    <!-- View Toggle -->
+    <div class="view-toggle">
+      <button class="view-btn active" data-view="cards">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect></svg>
+        Kártyák
+      </button>
+      <button class="view-btn" data-view="map">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon><line x1="8" y1="2" x2="8" y2="18"></line><line x1="16" y1="6" x2="16" y2="22"></line></svg>
+        Térkép
+      </button>
+      <span class="result-count" id="resultCount"></span>
+    </div>
+
+    <!-- Card View -->
+    <main id="cardView" class="view-content active">
+      <div id="cardContainer" class="card-container"></div>
+      <div id="emptyState" class="empty-state hidden">
+        <div class="empty-icon">🔍</div>
+        <p>Nincs találat ezekkel a szűrőkkel.</p>
+        <p class="empty-hint">Próbálj nagyobb távolságot vagy más étkezéstípust!</p>
+      </div>
+    </main>
+
+    <!-- Map View -->
+    <div id="mapView" class="view-content">
+      <div id="map"></div>
+    </div>
+
+    <!-- Detail Modal -->
+    <div id="detailModal" class="modal hidden">
+      <div class="modal-overlay"></div>
+      <div class="modal-sheet">
+        <div class="modal-handle"></div>
+        <button class="modal-close" aria-label="Bezárás">&times;</button>
+        <div id="modalBody"></div>
+      </div>
+    </div>
+
+    <!-- Settings Panel -->
+    <div id="settingsPanel" class="settings-panel hidden">
+      <div class="modal-overlay"></div>
+      <div class="settings-sheet">
+        <div class="modal-handle"></div>
+        <h2>Beállítások</h2>
+        <div class="setting-group">
+          <label class="setting-label">Kiindulópont</label>
+          <div class="setting-input-row">
+            <input type="text" id="startingPointInput" class="setting-input" value="Diósd, Magyarország" placeholder="Város neve...">
+            <button id="updateOriginBtn" class="btn-primary btn-sm">Frissít</button>
+          </div>
+          <p class="setting-hint" id="originStatus">Jelenlegi: Diósd</p>
+        </div>
+        <div class="setting-group">
+          <label class="setting-label">Adatok</label>
+          <p class="setting-hint">Utolsó frissítés: <span id="lastUpdated"></span></p>
+        </div>
+        <button class="btn-outline" id="closeSettingsBtn">Bezárás</button>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>Adatok: <span id="footerLastUpdated"></span> &middot; Hal/tengeri ételek kiszűrve</p>
+    </footer>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="js/restaurants.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
