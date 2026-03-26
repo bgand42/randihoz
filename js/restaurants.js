@@ -693,6 +693,27 @@ const RESTAURANTS = [
   }
 ];
 
+// Sources used for restaurant research
+const RESEARCH_SOURCES = [
+  { domain: 'timeout.com/hu/budapest', name: 'Time Out Budapest', note: 'Legjobb éttermek, brunch helyek, olasz éttermek toplisták' },
+  { domain: 'welovebudapest.com', name: 'We Love Budapest', note: '2025-ben nyílt helyek, brunch toplista, olasz helyek' },
+  { domain: 'elle.hu', name: 'Elle Magyarország', note: '2026-os új budapesti gasztrohelyek (JUNE, Kakurega, Lazy Lion)' },
+  { domain: 'borsonline.hu', name: 'Bors Online', note: 'Budapest legjobb brunch és reggelizőhelyei 2025' },
+  { domain: 'igenyesferfi.hu', name: 'Igényes Férfi / Dining Guide', note: 'Top 10 brunch és reggelizőhely' },
+  { domain: 'tripadvisor.com', name: 'TripAdvisor', note: 'Budapest és Budaörs éttermek, értékelések' },
+  { domain: 'offbeatbudapest.com', name: 'Offbeat Budapest', note: 'Trendy éttermek, Michelin-csillagos helyek' },
+  { domain: 'guide.michelin.com', name: 'Michelin Guide', note: 'Michelin-csillagos és Bib Gourmand éttermek 2025' },
+  { domain: 'opentable.com', name: 'OpenTable', note: 'Magyarországi éttermek listája' },
+  { domain: 'szeretlekmagyarorszag.hu', name: 'Szeretlek Magyarország', note: 'Olasz éttermek válogatás' },
+  { domain: 'hellomagyar.hu', name: 'Helló Magyar', note: 'Olasz és mediterrán éttermek Budapesten' },
+  { domain: 'beyondbudapest.hu', name: 'Beyond Budapest', note: 'Legjobb olasz éttermek' },
+  { domain: 'etterem.hu', name: 'Etterem.hu', note: 'Budaörs éttermei' },
+  { domain: 'hovamenjunk.hu', name: 'HovaMenjünk.hu', note: 'Brunch helyek Budapesten' },
+  { domain: 'penzcentrum.hu', name: 'Pénzcentrum', note: 'Brunch árak összehasonlítása' },
+  { domain: 'brunchbudapest.com', name: 'Brunch Budapest', note: 'Budapesti brunch helyek katalógusa' },
+  { domain: 'wanderlog.com', name: 'Wanderlog', note: 'Új budapesti éttermek listája' }
+];
+
 // Default starting point: Diósd
 const DEFAULT_ORIGIN = {
   name: 'Diósd, Magyarország',

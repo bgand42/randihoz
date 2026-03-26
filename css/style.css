@@ -876,6 +876,43 @@ body {
   margin-top: 6px;
 }
 
+/* === Header Buttons === */
+.header-buttons {
+  display: flex;
+  gap: 4px;
+}
+
+/* === Sources List === */
+.sources-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+.source-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 12px;
+  background: var(--bg);
+  border-radius: var(--radius);
+}
+
+.source-domain {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.source-note {
+  font-size: 0.72rem;
+  color: var(--text-tertiary);
+  line-height: 1.4;
+}
+
 /* === Footer === */
 .footer {
   text-align: center;

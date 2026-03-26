@@ -451,6 +451,28 @@
     document.querySelector('#detailModal .modal-close').addEventListener('click', closeDetail);
     document.querySelector('#detailModal .modal-overlay').addEventListener('click', closeDetail);
 
+    // Sources
+    document.getElementById('sourcesBtn').addEventListener('click', () => {
+      const panel = document.getElementById('sourcesPanel');
+      document.getElementById('sourcesLastSearch').textContent = LAST_WEB_SEARCH;
+      const list = document.getElementById('sourcesList');
+      list.innerHTML = RESEARCH_SOURCES.map(s =>
+        `<div class="source-item">
+          <span class="source-domain">${escapeHtml(s.domain)}</span>
+          <span class="source-note">${escapeHtml(s.note)}</span>
+        </div>`
+      ).join('');
+      panel.classList.remove('hidden');
+    });
+
+    document.getElementById('closeSourcesBtn').addEventListener('click', () => {
+      document.getElementById('sourcesPanel').classList.add('hidden');
+    });
+
+    document.querySelector('#sourcesPanel .modal-overlay').addEventListener('click', () => {
+      document.getElementById('sourcesPanel').classList.add('hidden');
+    });
+
     // Settings
     document.getElementById('settingsBtn').addEventListener('click', () => {
       document.getElementById('settingsPanel').classList.remove('hidden');
@@ -482,6 +504,7 @@
       if (e.key === 'Escape') {
         closeDetail();
         document.getElementById('settingsPanel').classList.add('hidden');
+        document.getElementById('sourcesPanel').classList.add('hidden');
       }
     });
   }

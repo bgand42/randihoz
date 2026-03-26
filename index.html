@@ -20,12 +20,21 @@
           <h1>RandiHoz</h1>
           <p class="subtitle">Hova menjünk enni, Stella?</p>
         </div>
-        <button class="btn-icon" id="settingsBtn" aria-label="Beállítások">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="3"></circle>
-            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
-          </svg>
-        </button>
+        <div class="header-buttons">
+          <button class="btn-icon" id="sourcesBtn" aria-label="Források">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="2" y1="12" x2="22" y2="12"></line>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
+          </button>
+          <button class="btn-icon" id="settingsBtn" aria-label="Beállítások">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+            </svg>
+          </button>
+        </div>
       </div>
     </header>
 
@@ -122,6 +131,18 @@
           <p class="setting-hint">Utolsó frissítés: <span id="lastUpdated"></span></p>
         </div>
         <button class="btn-outline" id="closeSettingsBtn">Bezárás</button>
+      </div>
+    </div>
+
+    <!-- Sources Panel -->
+    <div id="sourcesPanel" class="settings-panel hidden">
+      <div class="modal-overlay"></div>
+      <div class="settings-sheet">
+        <div class="modal-handle"></div>
+        <h2>Kutatási források</h2>
+        <p class="setting-hint" style="margin-bottom:14px">Utolsó kutatás: <span id="sourcesLastSearch"></span></p>
+        <div id="sourcesList" class="sources-list"></div>
+        <button class="btn-outline" id="closeSourcesBtn">Bezárás</button>
       </div>
     </div>
 
